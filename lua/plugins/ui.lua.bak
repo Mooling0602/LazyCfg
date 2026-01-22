@@ -1,0 +1,65 @@
+return {
+  -- 1. 优化 Neo-tree 浮窗：让它更大、居中，不再像个细长条
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      window = {
+        position = "float",
+        popup_strategy = "float",
+        config = {
+          header_zindex = 40,
+          -- 增加宽度，让它在手机上更易读
+          width = function(width)
+            return math.floor(width * 0.8)
+          end,
+        },
+      },
+      -- 居中显示浮窗
+      renderers = {
+        layout = {
+          { "panel", position = "center" },
+        },
+      },
+    },
+  },
+
+  -- 2. 优化 Telescope (截图背景那个)：在手机上必须强制使用纵向布局
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        -- 核心：手机端强制使用垂直布局，列表在上，预览在下
+        layout_strategy = "vertical",
+        layout_config = {
+          vertical = {
+            width = 0.95,
+            height = 0.95,
+            preview_height = 0.5, -- 预览区占一半高度
+          },
+        },
+      },
+    },
+  },
+
+  -- 3. 极致空间优化：隐藏两侧的空隙和装饰
+  {
+    "LazyVim/LazyVim",
+    opts = function()
+      -- 隐藏行号和侧边栏，为代码腾出每一像素
+      vim.opt.number = false
+      vim.opt.relativenumber = false
+      vim.opt.signcolumn = "no"
+      -- 手机端隐藏状态栏里的某些长项（可选）
+      vim.opt.laststatus = 2
+    end,
+  },
+
+  -- 4. 再次强烈建议安装 Oil.nvim (全屏模式，完全没有重叠烦恼)
+  {
+    "stevearc/oil.nvim",
+    opts = {
+      default_file_explorer = true,
+      columns = { "icon" },
+    },
+  },
+}
