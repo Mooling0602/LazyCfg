@@ -28,3 +28,7 @@ vim.g.clipboard = {
   },
 }
 vim.opt.clipboard = "unnamedplus"
+
+-- Python LSP configurations
+vim.g.lazyvim_python_lsp = "ty"
+vim.g.lazyvim_python_ruff = "ruff"
